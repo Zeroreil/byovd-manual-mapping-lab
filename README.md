@@ -39,7 +39,8 @@
 │  ├─ 06-hiding-and-detection.md
 │  ├─ 07-detection-matrix.md
 │  ├─ 08-lab-setup.md
-│  └─ 09-publication-boundary.md
+│  ├─ 09-publication-boundary.md
+│  └─ 10-references.md
 ├─ samples/
 │  ├─ benign-driver/        # LabDrv.c / LabDrv.inf / LabDrv.h
 │  └─ client/               # labctl.c
@@ -80,3 +81,7 @@
 ## License
 
 代码与文档以 MIT License 发布；见 [LICENSE](LICENSE)。
+
+## References
+
+Microsoft 驱动签名/HVCI/WDAC、Sysmon、ATT&CK 与检测工程参考见 [docs/10-references.md](docs/10-references.md)。
