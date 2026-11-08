@@ -1,0 +1,2 @@
+filename,sha256,version,signer,action,note
+AmdTools64.sys,891007BC9F3B55AE168FA60CCBB831CCDB5DCE4DA4A591D000806D5A2C6115C3,1.7.16.219,"Advanced Micro Devices Inc.","block","Public LOLD disclosure; metadata/hash only, binary not included"

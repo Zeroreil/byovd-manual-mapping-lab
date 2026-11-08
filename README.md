@@ -40,14 +40,17 @@
 │  ├─ 07-detection-matrix.md
 │  ├─ 08-lab-setup.md
 │  ├─ 09-publication-boundary.md
-│  └─ 10-references.md
+│  ├─ 10-references.md
+│  ├─ 11-amdtools64-case-study.md
+│  └─ 12-benign-ring0-deployment.md
 ├─ samples/
-│  ├─ benign-driver/        # LabDrv.c / LabDrv.inf / LabDrv.h
+│  ├─ benign-driver/        # LabDrv.c / LabDrv.inf / deploy.ps1
 │  └─ client/               # labctl.c
 ├─ detection/
 │  ├─ sigma/
 │  ├─ kql/
-│  └─ yara/
+│  ├─ yara/
+│  └─ hashes/               # hash-only known-vulnerable-driver metadata
 └─ diagrams/
 ```
 
@@ -56,7 +59,8 @@
 1. 准备 Windows 10/11 x64 测试 VM，关闭 Secure Boot，开启 `testsigning`，打快照。
 2. 用 WDK 构建 `samples/benign-driver`，测试签名 `LabDrv.sys`。
 3. 用 `samples/benign-driver/LabDrv.inf` 安装服务，或按 README 用 `sc create`。
-4. 构建并运行 `samples/client/labctl.exe`，确认 `PING` / `VERSION` 返回。
+4. 也可以直接运行 `samples/benign-driver/deploy.ps1`（只加载 benign LabDrv）。
+5. 构建并运行 `samples/client/labctl.exe`，确认 `PING` / `VERSION` 返回。
 5. 按 [docs/08-lab-setup.md](docs/08-lab-setup.md) 开启 Sysmon / 审核策略，观察驱动加载、服务创建、设备打开、IOCTL 调用产生的遥测。
 6. 回滚快照，删除测试证书。
 
@@ -67,12 +71,14 @@
 - 先看 [docs/07-detection-matrix.md](docs/07-detection-matrix.md)：按攻击阶段列出遥测与规则。
 - 再看 [docs/02-byovd-lifecycle.md](docs/02-byovd-lifecycle.md)：BYOVD 的每个阶段分别留下什么。
 - 最后看 [docs/06-hiding-and-detection.md](docs/06-hiding-and-detection.md)：隐藏面与交叉校验。
+- 具体样本案例：[docs/11-amdtools64-case-study.md](docs/11-amdtools64-case-study.md)（**仅元数据/哈希，不含二进制**）。
 
 ## 给研究者的入口
 
 - [docs/03-inf-and-service-loading.md](docs/03-inf-and-service-loading.md)：INF / 服务 / 加载路径。
 - [docs/04-manual-mapping.md](docs/04-manual-mapping.md)：手动映射的阶段与失败模式（概念级，不含 loader）。
 - [docs/05-ioctl-communication.md](docs/05-ioctl-communication.md)：IOCTL 契约、调用方校验、模糊测试。
+- [docs/12-benign-ring0-deployment.md](docs/12-benign-ring0-deployment.md)：benign 驱动进入 ring0 的完整部署/清理流程。
 
 ## 授权与伦理
 

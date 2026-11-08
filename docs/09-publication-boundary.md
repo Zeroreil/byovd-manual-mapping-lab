@@ -4,11 +4,13 @@
 
 ## 1. 不包含的二进制
 
-- 真实易受攻击的 OEM/第三方签名驱动（BYOVD 的“B”）。
+- 真实易受攻击的 OEM/第三方签名驱动（BYOVD 的“B”），包括 `AmdTools64.sys` 等已知样本的**二进制**。
 - `kdmapper`、`kdmapper_kfp` 或任何现成 manual mapper。
 - 带有任意物理/虚拟内存读写、MSR/端口访问、进程操作的危险驱动。
 - 完整 payload、shellcode、DSE/CI bypass。
 - ACE/游戏/目标进程的模块、偏移、符号、版本数据。
+
+> 文件名、版本、签名者、SHA256 可以保留在检测目录中（如 `detection/hashes/`），但二进制、INF、服务安装包和 loader 不进入公开仓库。
 
 ## 2. 不包含的实现
 
@@ -35,7 +37,10 @@
 - 手动映射的失败模式与检测信号（不含代码）；
 - 隐藏面的交叉校验；
 - Sigma/KQL/YARA 模板；
-- 隔离实验与清理流程。
+- 隔离实验与清理流程；
+- **已知易受攻击驱动的元数据/哈希**（用于检测和拦截，不含二进制、INF、loader）。
+
+例如 [11-amdtools64-case-study.md](11-amdtools64-case-study.md) 只保留文件名、版本、签名者和 SHA256；驱动文件本身不在仓库里。
 
 ## 5. 如果确实需要完整实验
 

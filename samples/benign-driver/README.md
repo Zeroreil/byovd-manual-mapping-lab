@@ -16,6 +16,7 @@
 | `LabDrv.c` | 驱动源码 |
 | `LabDrv.h` | IOCTL/设备名/版本结构 |
 | `LabDrv.inf` | demand-start 内核服务安装模板 |
+| `deploy.ps1` | 一键部署/清理（只加载 benign LabDrv） |
 | `../client/labctl.c` | 用户态测试客户端 |
 
 ## 构建（WDK + MSVC x64）
@@ -66,6 +67,22 @@ sc create LabDrv type= kernel start= demand binPath= C:\Lab\LabDrv.sys
 sc start LabDrv
 sc query LabDrv
 ```
+
+## 一键部署（benign）
+
+把 `LabDrv.sys`、`labctl.exe`、`deploy.ps1` 放到同一个目录，管理员 PowerShell：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\deploy.ps1
+```
+
+清理：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\deploy.ps1 -Cleanup
+```
+
+`deploy.ps1` 只做 `sc create/start` + `labctl`，不包含 BYOVD/手动映射。
 
 ## 运行客户端
 

@@ -10,6 +10,7 @@
 | `sigma/driver-load-unsigned.yml` | 未签名/测试签名驱动加载 | `SignatureStatus` 字段依赖 Sysmon/EDR |
 | `kql/driver-load.kql` | Defender XDR / Sentinel 模板 | 表/列名需按环境调整 |
 | `yara/README.md` | 为什么“文件 YARA”不够 | 手动映射主要是内存问题 |
+| `hashes/known-vulnerable-drivers.csv` | 已知易受攻击驱动元数据 | 只含哈希/版本，不含二进制 |
 
 ## 调参建议
 
