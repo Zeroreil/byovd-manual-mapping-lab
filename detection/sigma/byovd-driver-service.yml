@@ -1,0 +1,25 @@
+title: Kernel Driver Service Created
+id: 5f0d3a1e-9b7c-4e2a-8d6f-1c3b5a7e9d20
+status: experimental
+description: Detects creation of a kernel-mode service (potential BYOVD staging/loading).
+references:
+  - https://learn.microsoft.com/windows/security/threat-protection/auditing/event-4697
+  - https://attack.mitre.org/techniques/T1543/003/
+author: HyperR0 Lab
+date: 2026/11/09
+logsource:
+  product: windows
+  service: system
+detection:
+  selection:
+    EventID: 7045
+    ServiceType: 'kernel mode driver'
+  condition: selection
+falsepositives:
+  - Legitimate driver installation by IT/software update
+  - Test-signed drivers on developer machines
+level: medium
+tags:
+  - attack.persistence
+  - attack.privilege_escalation
+  - attack.t1543.003

@@ -1,0 +1,35 @@
+// Kernel driver load / service creation hunting template.
+// Schema varies between Defender XDR, Sentinel and third-party EDRs.
+// Adjust table/column names to your environment.
+
+// 1) Driver image loads (Sysmon EID 6 forwarded to DeviceEvents/DeviceImageLoadEvents).
+DeviceImageLoadEvents
+| where Timestamp > ago(7d)
+| where FileName endswith ".sys"
+| extend Signer = tostring(parse_json(AdditionalFields).Signer)
+| extend SignatureStatus = tostring(parse_json(AdditionalFields).SignatureStatus)
+| where SignatureStatus in ("Unavailable", "Unchecked", "TestSigned")
+| project Timestamp, DeviceName, FileName, FolderPath, SHA256, Signer, SignatureStatus, InitiatingProcessFileName
+| order by Timestamp desc
+
+// 2) Kernel service creation (Security 4697 / System 7045 forwarded).
+DeviceEvents
+| where Timestamp > ago(7d)
+| where ActionType == "ServiceInstalled"
+| extend ServiceType = tostring(parse_json(AdditionalFields).ServiceType)
+| extend ServiceName = tostring(parse_json(AdditionalFields).ServiceName)
+| extend ImagePath = tostring(parse_json(AdditionalFields).ImagePath)
+| where ServiceType has "kernel"
+| project Timestamp, DeviceName, ServiceName, ServiceType, ImagePath, InitiatingProcessFileName, AccountName
+| order by Timestamp desc
+
+// 3) Correlation: driver service created then device opened by a non-system process.
+// Replace <DeviceName> with the device you are hunting.
+DeviceEvents
+| where Timestamp > ago(1d)
+| where ActionType in ("ServiceInstalled", "DeviceOpened")
+| extend ServiceName = tostring(parse_json(AdditionalFields).ServiceName)
+| extend DeviceName = tostring(parse_json(AdditionalFields).DeviceName)
+| where ServiceName == "<ServiceName>" or DeviceName == "<DeviceName>"
+| project Timestamp, DeviceName, ActionType, ServiceName, DeviceName, InitiatingProcessFileName, AccountName
+| order by Timestamp asc

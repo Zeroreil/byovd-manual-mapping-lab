@@ -1,0 +1,40 @@
+; LabDrv.inf - benign lab driver install template.
+;
+; This INF installs a demand-start kernel service for LabDrv.sys.
+; It is a research/teaching sample, not a production driver package.
+;
+; For a real INF install on Windows 10/11 you normally also need a signed
+; catalog (LabDrv.cat). In a test VM you can instead load the test-signed
+; LabDrv.sys with:
+;   sc create LabDrv type= kernel start= demand binPath= C:\Lab\LabDrv.sys
+;   sc start LabDrv
+
+[Version]
+Signature="$WINDOWS NT$"
+Class=System
+ClassGuid={4D36E97D-E325-11CE-BFC1-08002BE10318}
+Provider=%ManufacturerName%
+DriverVer=11/09/2026,1.0.0.0
+
+[DefaultInstall]
+CopyFiles=LabDrv.CopyFiles
+
+[DefaultInstall.Services]
+AddService=LabDrv,,LabDrv.Service
+
+[DestinationDirs]
+LabDrv.CopyFiles=12
+
+[LabDrv.CopyFiles]
+LabDrv.sys
+
+[LabDrv.Service]
+DisplayName=%ServiceDesc%
+ServiceType=1
+StartType=3
+ErrorControl=1
+ServiceBinary=%12%\LabDrv.sys
+
+[Strings]
+ManufacturerName="HyperR0 Lab"
+ServiceDesc="HyperR0 Benign Lab Driver"

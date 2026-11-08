@@ -1,0 +1,40 @@
+# Build output
+build/
+out/
+bin/
+obj/
+*.obj
+*.o
+*.pdb
+*.ilk
+*.exp
+*.lib
+*.sys
+*.exe
+*.dll
+*.cat
+*.inf.bak
+
+# Certificates / secrets
+*.pfx
+*.pvk
+*.p12
+*.pem
+*.key
+secrets/
+.env
+
+# Lab artifacts
+*.dmp
+*.vmem
+*.vmsn
+*.vmss
+*.log
+*.etl
+*.trace
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
