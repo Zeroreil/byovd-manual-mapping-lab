@@ -4,7 +4,7 @@
 
 - [ ] I have read [AUTHORIZED_USE.md](AUTHORIZED_USE.md) and [docs/09-publication-boundary.md](docs/09-publication-boundary.md).
 - [ ] My change does not add a real vulnerable driver binary, kdmapper, or a complete manual-mapping/hiding loader.
-- [ ] My change does not add ACE/game/target-specific offsets, symbols, or credentials.
+- [ ] My change does not add specific target/game-specific offsets, symbols, or credentials.
 - [ ] My change does not add `.pfx`, `.pvk`, `.cat`, `.sys`, `.exe` or `.dmp` files.
 - [ ] If I add a detection rule, I documented false positives and a baseline test.
 

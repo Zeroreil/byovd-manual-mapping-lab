@@ -21,7 +21,7 @@ This repository is a **defensive research and education** project. It is not a r
 1. 隔离 VM，最好不连接生产网络。
 2. 关闭 Secure Boot，开启 `testsigning`，只用于测试签名。
 3. 每次实验前打快照，实验后回滚。
-4. 不把测试证书私钥、真实目标数据、ACE/游戏偏移提交到公开仓库。
+4. 不把测试证书私钥、真实目标数据、具体目标/游戏偏移提交到公开仓库。
 
 ## 责任
 
