@@ -59,7 +59,7 @@
 | [`detection/sigma/byovd-driver-service.yml`](../detection/sigma/byovd-driver-service.yml) | 内核服务创建 |
 | [`detection/sigma/driver-load-unsigned.yml`](../detection/sigma/driver-load-unsigned.yml) | 未签名/测试签名驱动加载 |
 | [`detection/kql/driver-load.kql`](../detection/kql/driver-load.kql) | Defender XDR / Sentinel 模板 |
-| [`detection/yara/manual-mapper.yar`](../detection/yara/manual-mapper.yar) | 手动映射样本的**启发式**特征（非通用） |
+| [`detection/yara/README.md`](../detection/yara/README.md) | 手动映射样本的**内存扫描**思路（非通用文件规则） |
 
 > 规则是模板，不是“开箱即用”的最终检测。请按自己的日志字段、系统版本和基线调整。
 
